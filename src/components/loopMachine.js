@@ -1,137 +1,128 @@
+import React, { useEffect, useState, useContext  } from "react";
 import Pad from "./pad.js";
-import React, { useEffect, useState } from "react";
+import Timer from './timer.js';
 
 function LoopMachine() {
 
+  const [isPlaying,  setIsPlaying] = useState(false);
+  const [isRecording,  setIsRecording] = useState(false);
+  const [playList,  setPlayList] = useState(new Array(9));
+  const [padCount , setPadCount] = useState(0);
+
   const audioList = [
-    { key: 0, bgColor: "#8EC5FC" ,bgImage: "linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)",
-     text: "120_future_funk_beats_25" , tag: "maracas.png" },
-
-    { key: 1, bgColor: "#8BC6EC", bgImage: "linear-gradient(62deg, #d8c4fc 0%, #38b9fd 100%)",
-     text: "electric guitar coutry slide 120bpm - B", tag: "electric-guitar.png" },
-
-	  { key: 2, bgColor: "#21D4FD" ,bgImage: "linear-gradient(62deg, #4cbbfd 0%, #d4c4fc 100%)",
-     text: "SilentStar_120_Em_OrganSynth", tag: "acoustic-guitar.png" },
-
-    { key: 3, bgColor: "#08AEEA" ,bgImage: "linear-gradient(62deg, #08AEEA 0%, #2AF598 100%)",
-     text: "120_stutter_breakbeats_16", tag: "conga (1).png" },
-
-    { key: 4, bgColor: "#85FFBD" ,bgImage: "linear-gradient(62deg, #85FFBD 0%, #FFFB7D 100%)",
-     text: "MazePolitics_120_Perc", tag: "drums (1).png" },
-
-    { key: 5, bgColor: "#FFFB7D" ,bgImage: "linear-gradient(62deg, #FFFB7D 0%, #03a8e3 100%)",
-     text: "FUD_120_StompySlosh", tag: "cymbal (1).png" },
-
-    { key: 6, bgColor: "#FBAB7E" ,bgImage: "linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%)",
-     text: "Bass Warwick heavy funk groove on E 120 BPM", tag: "sound-mixer (1).png" },
-
-    { key: 7, bgColor: "#FEE140" ,bgImage: "linear-gradient(62deg, #FEE140 0%, #FA709A 100%)",
-     text: "PAS3GROOVE1.03B", tag: "level (1).png" },
-
-    { key: 8, bgColor: "#FF9A8B" ,bgImage: "linear-gradient(62deg, #FF9A8B 0%, #FF6A88 27%, #FF99AC 49%)",
-     text: "GrooveB_120bpm_Tanggu", tag: "sound-bar (1).png" },
-
+    { key: 0, barColor: "glow-blue" , path: "audio/120_stutter_breakbeats_16.mp3" , tag: "maracas.png" },
+    { key: 1, barColor: "glow-red",path: "audio/Bass Warwick heavy funk groove on E 120 BPM.mp3", tag: "acoustic-guitar.png" },
+	  { key: 2, barColor: "glow-red" ,path: "audio/electric guitar coutry slide 120bpm - B.mp3", tag: "electric-guitar.png" },
+    { key: 3, barColor: "glow-green" ,path: "audio/GrooveB_120bpm_Tanggu.mp3", tag: "conga.png" },
+    { key: 4, barColor: "glow-red" ,path: "audio/FUD_120_StompySlosh.mp3", tag: "drums.png" },
+    { key: 5, barColor: "glow-yellow" ,path: "audio/PAS3GROOVE1.03B.mp3", tag: "cymbal.png" },					
+    { key: 6, barColor: "glow-yellow" ,path: "audio/SilentStar_120_Em_OrganSynth.mp3", tag: "sound-mixer.png" },					 
+    { key: 7, barColor: "glow-green" ,path: "audio/120_future_funk_beats_25.mp3", tag: "level.png" },					 
+    { key: 8, barColor: "glow-blue" ,path: "audio/MazePolitics_120_Perc.mp3", tag: "sound-bar.png" },
   ];
+  
+  //  useEffect(() => {
+  //   if(isPlaying===true && padCount>0){
+  //   var sec = document.getElementById("sec");
+  //   if(sec){
+  //     console.log(typeof sec)
+  //     console.log(sec.value)
+  //     console.log(Object.values(sec.value))
+  //   }
+  // }
+  // }, [isPlaying,padCount])
 
-  const Pads = audioList?.map((audio) => (
-    <Pad key={audio._id} audio={audio} />
+
+  // const [counter, setCounter] = React.useState(0);
+  // useEffect(() => {
+  //   const timer =
+  //     counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+  //     console.log(counter)
+  //   return () => clearInterval(timer);
+  // }, [counter]);
+
+  function HandelPad(index,bool){
+    const audio = new Audio(audioList[index].path);
+    audio.loop=true;
+    
+    let tempPlayList = [...playList];
+    if (bool===true){
+      tempPlayList[index]=audio;
+      setPlayList(tempPlayList);
+      setPadCount(padCount => padCount + 1)
+      if(isPlaying === true){
+        audio.play();
+      }
+    }else {
+      if(isPlaying === true){
+        tempPlayList[index].pause();
+      }
+      tempPlayList[index] = undefined;
+      setPlayList(tempPlayList);
+      setPadCount(padCount => padCount - 1)
+    }
+  }
+
+  function HandelPlayStopClick(){
+    if(isPlaying===false){
+      setIsPlaying(true);
+      playList.forEach((e) => {
+        if(e!==undefined){ e.play();}
+      })
+    }
+    if(isPlaying===true){
+      setIsPlaying(false);
+      playList.forEach((e) => {
+        if(e!==undefined){ 
+          e.currentTime = 8;
+          e.pause();
+        }
+      })
+    }
+  }
+
+  const Pads = audioList?.map((pad) => (
+    <Pad key={pad.key} pad={pad} HandelPad={HandelPad} />
   ));
 
-  return !audioList ? (
-    <div>Loading...</div>
-  ) : (
+  return (
     <>
-      <section className="most-search spad" style={{background: '#547693'}}>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-title">
-                <h2>LOOP MACHINE</h2>
-                {/* <p>
-                  Here you can find all our top popular events in each category!
-                </p> */}
+      <section className="looper_section" >
+        <div className="looper_container" 
+          style={{backgroundImage: 'url(pics/multi-pad-edited.jpg)', 
+          boxShadow: isPlaying === true ? '0px 5px 10px 4px  #12ae29' 
+          : isRecording === true ? '0px 5px 10px 4px  #b61313' : null}}>
+          <div className="pad_container">
+            {Pads}
+          </div>
+          <div className="player_container">
+            <h2>LOOP MACHINE</h2>
+            <div className="buttons_set">
+              <div className="play_stop">
+                <div className="headline">
+                  <h5 >Play</h5>
+                  <h5 >Stop</h5>
+                </div>
+                <img className="play" src="pics/play.png" alt="" onClick={ isPlaying===true ? (e) => e.preventDefault() : HandelPlayStopClick }/>
+                <img className="stop" src="pics/stop.png" alt="" onClick={ isPlaying===false ? (e) => e.preventDefault() : HandelPlayStopClick }/>
+              </div>
+              <div className="timer" >
+                {
+                isPlaying===true && padCount > 0 ? <Timer></Timer>
+                : <div></div>
+                }
+              </div>
+              <div className="rec_stop">
+                <div className="headline">
+                  <h5 style={{marginLeft: '0px'}}>Rec</h5>
+                  {/* <h5 >Stop</h5> */}
+                </div>
+                <img className="rec" src="pics/rec.png" alt="" />
+                {/* <img className="stop" src="pics/stop.png" alt="" /> */}
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-lg-12">
-              {/* <div className="most__search__tab">
-                <ul className="nav nav-tabs" role="tablist">
-                  <li className="nav-item" >
-                    <a
-                      className="nav-link active"
-                      data-toggle="tab"
-                      href="#tabs-1"
-                      role="tab"
-                      // onClick={() => setName("Concerts")}
-                    >
-                      <span className="flaticon2-microphone" />
-                      Concerts
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      data-toggle="tab"
-                      href="#tabs-2"
-                      role="tab"
-                      // onClick={() => setName("Festivals")}
-                    >
-                      <span className="flaticon2-hot-air-balloon" />
-                      Festivals
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      data-toggle="tab"
-                      href="#tabs-3"
-                      role="tab"
-                      // onClick={() => setName("Sport")}
-                    >
-                      <span className="flaticon2-football" />
-                      Sport 
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      data-toggle="tab"
-                      href="#tabs-4"
-                      role="tab"
-                      // onClick={() => setName("StandUp")}
-                    >
-                      <span className="flaticon2-microphone-1" />
-                      StandUp
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      data-toggle="tab"
-                      href="#tabs-5"
-                      role="tab"
-                      // onClick={() => setName("Theatre")}
-                    >
-                      <span className="flaticon2-theater" />
-                      Theatre
-                    </a>
-                  </li>
-                </ul>
-              </div> */}
-              {/* <div className="tab-content"> */}
-                {/* <div className="tab-pane active" role="tabpanel"> */}
-                  <div className="pad-container">
-                  {Pads}
-                  </div>
-                  <div className="pad-container">
-                  
-                  </div>
-                </div>
-              </div>
-            </div>
-          {/* </div>  */}
-          {/* </div> */}
+        </div>
       </section>
       </>
   );

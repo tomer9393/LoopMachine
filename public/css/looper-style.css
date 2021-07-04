@@ -1,0 +1,325 @@
+/*----------------------------------------*/
+
+/* Template default CSS
+/*----------------------------------------*/
+
+html,
+body {
+	height: 100%;
+	/* font-family: "Cairo", sans-serif; */
+	-webkit-font-smoothing: antialiased;
+	margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #242b31;
+}
+
+.container {
+    width: 720px;
+    height: 720px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	color: #111111;
+	font-weight: 400;
+	font-family: "Cairo", sans-serif;
+}
+
+h1 {
+	font-size: 70px;
+}
+
+h2 {
+	font-size: 36px;
+}
+
+h3 {
+	font-size: 30px;
+}
+
+h4 {
+	font-size: 24px;
+}
+
+h5 {
+	font-size: 18px;
+}
+
+h6 {
+	font-size: 16px;
+}
+
+p {
+	font-size: 15px;
+	font-family: "Cairo", sans-serif;
+	color: #707070;
+	font-weight: 400;
+	line-height: 25px;
+	margin: 0 0 15px 0;
+}
+
+img {
+	max-width: 100%;
+}
+
+input:focus,
+select:focus,
+button:focus,
+textarea:focus {
+	outline: none;
+}
+
+
+
+a:hover,
+a:focus {
+	text-decoration: none;
+	outline: none;
+	color: #ffffff;
+}
+
+ul,
+ol {
+	padding: 0;
+	margin: 0;
+}
+
+
+
+/*---------------------
+        Looper
+-----------------------*/
+
+.looper_section {
+	padding-top: 100px;
+}
+
+.looper_container{
+	width: 720px;
+    height: 720px;
+    margin-right: auto;
+    margin-left: auto;
+	border: outset ;
+	border-radius: 5px;
+	box-shadow: 0px 5px 10px 4px  #888888;
+}
+
+/*---------------------
+        Pad
+-----------------------*/
+
+.pad_container {
+    text-align: center;
+    /* max-width: 655px; */
+    display: grid;
+    grid-template-columns: 5fr 5fr 5fr;
+	width: 720px;
+    /* padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto; */
+}
+
+.player_container {
+    text-align: center;
+	width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+    height: 180px;
+}
+
+
+.player_container .buttons_set {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.player_container .buttons_set .play_stop{
+    /* display: flex;
+    justify-content: space-around; */
+}
+.player_container .buttons_set .rec_stop{
+    /* display: flex;
+    justify-content: space-around; */
+}
+
+.player_container .buttons_set .play_stop .play{
+    margin-right: 10px;
+    /* margin-top: 15px; */
+}
+
+.player_container .buttons_set .play_stop .stop{
+    /* margin-right: 20px; */
+    /* margin-top: 15px; */
+}
+
+.player_container .buttons_set .rec_stop .rec{
+    margin-right: 10px;
+    /* margin-top: 15px; */
+}
+
+.player_container .buttons_set .headline{
+    display: flex;
+    justify-content: space-around;
+}
+
+.player_container .buttons_set .headline h5{
+    margin-left: 10px;
+}
+
+.player_container .buttons_set .rec_stop .stop{
+    /* margin-right: 20px; */
+    /* margin-top: 15px; */
+}
+
+.player_container .buttons_set .timer div{
+    max-width:100px;
+    max-height: 97px;
+}
+
+.player_container .buttons_set .button:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+.player_container h2{
+	margin-top: 15px;
+	color: floralwhite;
+	text-shadow: 2px 2px 5px #cecece;
+	font-weight: bold;
+}
+
+.player_container h5{
+	color: floralwhite;
+	text-shadow: 2px 2px 5px #cecece;
+	/* font-weight: bold; */
+}
+
+.pad {
+    height: 155px;
+    width: 210px;
+    border-radius: 25px;
+    margin-top: 14px;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    margin-left: 10px;
+    animation: shadow-drop-2-center 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.pad:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+.pad_item {
+    height: 153px;
+    width: 220px;
+}
+
+.pad_item_tag {
+	display: inline-block;
+    max-width: 40%;
+}
+
+.pad_bar {
+    background: aliceblue;
+    border-radius: 5px;
+    border: outset;
+    border-width: thin;
+    height: 12px;
+    width: 140px;
+    margin-left: 38px;
+}
+
+/*---------------------
+        Glow
+-----------------------*/
+
+.glow-blue {
+	box-shadow:
+    inset 0 0 50px #00ffff,      /* inner cyan */
+    inset 20px 0 80px #00ffff,   /* inner left cyan short */
+    inset -20px 0 80px #fff,  /* inner right white short */
+    inset 20px 0 300px #00ffff,  /* inner left cyan broad */
+    inset -20px 0 300px #fff, /* inner right white broad */
+    0 0 50px #fff,            /* outer white */
+    -10px 0 80px #00ffff,        /* outer left cyan */
+    10px 0 80px #fff;         /* outer right white */
+}
+.glow-green {
+	box-shadow:
+    inset 0 0 50px #39FF14,      /* inner green */
+    inset 20px 0 80px #39FF14,   /* inner left green short */
+    inset -20px 0 80px #fff,  /* inner right white short */
+    inset 20px 0 300px #39FF14,  /* inner left green broad */
+    inset -20px 0 300px #fff, /* inner right white broad */
+    0 0 50px #fff,            /* outer white */
+    -10px 0 80px #39FF14,        /* outer left green */
+    10px 0 80px #fff;         /* outer right white */
+}
+.glow-red {
+	box-shadow:
+    inset 0 0 50px #ff3838,      /* inner red */
+    inset 20px 0 80px #ff0000,   /* inner left red short */
+    inset -20px 0 80px #fff,  /* inner right white short */
+    inset 20px 0 300px #ff0000,  /* inner left red broad */
+    inset -20px 0 300px #fff, /* inner right white broad */
+    0 0 50px #fff,            /* outer white */
+    -10px 0 80px #ff0000,        /* outer left red */
+    10px 0 80px #fff;         /* outer right white */
+}
+.glow-yellow {
+	box-shadow:
+    inset 0 0 50px #faed27,      /* inner yellow */
+    inset 20px 0 80px #faed27,   /* inner left yellow short */
+    inset -20px 0 80px #fff,  /* inner right white short */
+    inset 20px 0 300px #faed27,  /* inner left yellow broad */
+    inset -20px 0 300px #fff, /* inner right white broad */
+    0 0 50px #fff,            /* outer white */
+    -10px 0 80px #faed27,        /* outer left yellow */
+    10px 0 80px #faed27;         /* outer right yellow */
+}
+
+/*---------------------
+        Timer
+-----------------------*/
+  .timer-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .text {
+    color: floralwhite;
+	text-shadow: 2px 2px 5px #cecece;
+  }
+  
+  .value {
+    font-size: 40px;
+  }
+  
+  .info {
+    max-width: 360px;
+    margin: 40px auto 0;
+    text-align: center;
+    font-size: 16px;
+  }
