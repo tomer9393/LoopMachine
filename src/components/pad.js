@@ -7,15 +7,18 @@ function Pad(props) {
   const barColor = audioPad.barColor;
   const tag = audioPad.tag;
   const HandelPad = props.HandelPad;
-  const [status, setStatus] = useState(false);
+  const [activePad, setActivePad] = useState(false);
 
-  function HandelStatusClick(){
-    if(status===false){
-      setStatus(true);
+  // Handle for pad click.
+  // if OFF turn to ON. if ON turn to OFF.
+  // and activate the handle pad func that was passed from loop-machine.
+  function HandelPadClick(){
+    if(activePad===false){
+      setActivePad(true);
       HandelPad(index,true)
     }
-    if(status===true){
-      setStatus(false);
+    if(activePad===true){
+      setActivePad(false);
       HandelPad(index,false)
     }
   }
@@ -24,11 +27,11 @@ function Pad(props) {
       <>
       <div className="pad">
         <div>
-          <div className="pad_item" onClick={HandelStatusClick} >
+          <div className="pad_item" onClick={HandelPadClick} >
             <div className="pad_item_tag"><img src={`pics/${tag}`} alt="" /></div>
           </div>
           {
-          status===false ? 
+          activePad===false ? 
           <div className="pad_bar" style={{	background: 'floralwhite'}}></div>
           : <div className={`pad_bar ${barColor}`}></div>
           }
